@@ -1,0 +1,45 @@
+#version: "3.10"
+#services:
+#  db:
+#    image: postgres:15
+#    container_name: up_db
+##    command: -p 1233
+#    ports:
+#      - "1233:5432"
+#    env_file:
+#      - .env-no-dev
+#
+#  app:
+#    build:
+#      context: .
+#    env_file:
+#      - .env-no-dev
+#    container_name: uptemoll_web
+#    command: ["/backend/docker/app.sh"]
+#    ports:
+#      - 1236:8000
+#    depends_on:
+#      - db
+
+version: "3.10"
+services:
+  db:
+    image: postgres:15
+    container_name: up_db
+    command: -p 1233
+    expose:
+      - 1233
+    env_file:
+      - .env-no-dev
+
+  app:
+    build:
+      context: .
+    env_file:
+      - .env-no-dev
+    container_name: uptemoll_web
+    command: ["/backend/docker/app.sh"]
+    ports:
+      - 1236:8000
+    depends_on:
+      - db
